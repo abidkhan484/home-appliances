@@ -24,12 +24,8 @@ const start = async () => {
 
   const { app, eventEmitter, connectWithDB, logger } = await setupCore();
 
-  // app.get("/", (req, res) => {
-  //   logger.info("logger setup successful.");
-  //   res.send("Hello World!");
-  // });
-
   try {
+    global.__logger = logger;
     await configureRoutes(app);
     app.listen(PORT, async () => {
       const broadcastDatabaseConnectionEstablished = (em) => {

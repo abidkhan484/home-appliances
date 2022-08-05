@@ -1,8 +1,8 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "description": "Mir info systems ltd smart home backend",
+  "description": "Smart home backend",
   "main": "index.js",
-  "author": "Mir Info Systems Ltd",
+  "author": "Abid Khan",
   "license": "MIT"
 }
