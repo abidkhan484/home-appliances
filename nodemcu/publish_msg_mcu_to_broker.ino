@@ -1,13 +1,18 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
+// define the GPIO connected with Relays and switches
+#define LED_LIGHT 4 // GPIO 4 D2
+#define LED_FAN 0 // GPIO 0 D3
+
 // WiFi
 const char *ssid = "wifi_user"; // Enter your WiFi name
 const char *password = "password";  // Enter WiFi password
 
 // MQTT Broker
 const char *mqtt_broker = "3.1.83.232";
-const char *topic = "home";
+const char *topic_light = "home/light";
+const char *topic_fan = "home/fan";
 const char *mqtt_username = "polymath";
 const char *mqtt_password = "pass word";
 const int mqtt_port = 1883;
@@ -40,18 +45,34 @@ void setup() {
           delay(2000);
       }
   }
-  // publish and subscribe
-  client.publish(topic, "hi, broker");
-  client.subscribe(topic);
+  // publish and subscribe from topic_light
+  client.publish(topic_light, "hi, broker from topic home/light");
+  client.subscribe(topic_light);
+  // publish and subscribe from topic_fan
+  client.publish(topic_fan, "hi, broker from topic home/fan");
+  client.subscribe(topic_fan);
 }
 
 void callback(char *topic, byte *payload, unsigned int length) {
   Serial.print("Message arrived in topic: ");
   Serial.println(topic);
   Serial.print("Message:");
+
+  String message;
   for (int i = 0; i < length; i++) {
-      Serial.print((char) payload[i]);
+    message = message + (char) payload[i]; // convert *byte to char
   }
+  int commandTopic;
+  if (String(topic) == String(topic_light)) {
+    commandTopic = LED_LIGHT;
+  }
+  else if (String(topic) == String(topic_fan)) {
+    commandTopic = LED_FAN;
+  }
+
+  Serial.print(message);
+  if (message == "on") { digitalWrite(commandTopic, LOW); }   // LED on
+  if (message == "off") { digitalWrite(commandTopic, HIGH); } // LED off
   Serial.println();
   Serial.println("-----------------------");
 }
@@ -59,4 +80,3 @@ void callback(char *topic, byte *payload, unsigned int length) {
 void loop() {
   client.loop();
 }
-
