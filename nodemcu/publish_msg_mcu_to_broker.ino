@@ -1,3 +1,6 @@
+// It's really a bad practice to push credentials or any sensitive information to Git
+// But I'm doing it for testing purpose with the tracking of my changes
+
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
