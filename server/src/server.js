@@ -3,7 +3,7 @@ const { init } = require("./modules");
 
 require("dotenv").config();
 
-const PORT = process.env.PORT || 5000;
+const APP_PORT = process.env.APP_PORT || 5000;
 
 const start = async () => {
   const initModules = async (app) => {
@@ -27,7 +27,7 @@ const start = async () => {
   try {
     global.__logger = logger;
     await configureRoutes(app);
-    app.listen(PORT, async () => {
+    app.listen(APP_PORT, async () => {
       const broadcastDatabaseConnectionEstablished = (em) => {
         em.emit("broadcastDatabaseConnectionEstablished");
       };
