@@ -1,8 +1,7 @@
+const authRoutes = require("./controller");
 
 const init = async (app) => {
-  app.use("/auth", (req, res) => {
-    res.send("Auth route");
-  });
+  app.use("/api/auth", authRoutes);
   return app;
 };
 

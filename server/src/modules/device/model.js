@@ -11,6 +11,7 @@ const topicSchema = new mongoose.Schema(
 
 topicSchema.index({ uid: "text" });
 
-const Topic = mongoose.model("Topic", topicSchema, "topic");
+const ModelName = "Topics";
+const Topic = mongoose.model(ModelName, topicSchema);
 
 module.exports = { Model: Topic, name: ModelName };
