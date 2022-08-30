@@ -33,6 +33,7 @@ const start = async () => {
       };
 
       await connectWithDB(broadcastDatabaseConnectionEstablished, eventEmitter);
+      console.log(`Server starts at port ${APP_PORT}`);
     });
   } catch (err) {
     console.log(err);

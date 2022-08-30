@@ -9,12 +9,7 @@ const save = async (item, modelName) => {
 };
 
 const getById = async (id, modelName) => {
-  __logger.error(`Error for ${modelName}`);
-  console.log(modelName);
-
-  const model = await mongoose.models[modelName].findById(
-    "62f8d0d56ba269258455bbe3"
-  );
+  const model = await mongoose.models[modelName].findById(id);
   if (model == null) {
     throw new Error(`${modelName} not found by the id: ${id}`);
   }
